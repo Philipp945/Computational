@@ -51,8 +51,6 @@ function update_cars!(cars, road_length)
     sort!(cars, by = c -> c.position)
 end
 
-# === Run Simulation ===
-
 function run_simulation(road_length, steps)
     cars = init_cars(road_length, car_density)
     history = zeros(Int8, steps, road_length)
@@ -66,8 +64,7 @@ function run_simulation(road_length, steps)
     return history
 end
 
-# === Plot ===
-
+# plot
 history = run_simulation(road_length, steps)
 
 f = Figure()
