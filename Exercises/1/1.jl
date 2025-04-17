@@ -8,14 +8,20 @@ v_max = 5
 car_density = 0.2
 dawdling_probability = 0.15
 
+# create car structure
 mutable struct Car
     position::Int
     speed::Int
 end
 
 function init_cars(road_length, car_density)
-    num_cars = Int(car_density * road_length)
-    positions = sort(rand(1:road_length, num_cars))
+    road = zeros(road_length)
+    for i in 1:road_length
+        if rand() < car_density
+            road[i] = 1
+        end
+    end
+    positions = findall(x -> x == 1, road)
     return [Car(pos, 0) for pos in positions]
 end
 
@@ -67,7 +73,7 @@ end
 # plot
 history = run_simulation(road_length, steps)
 
-f = Figure()
-ax = Axis(f[1,1], ylabel = "Position", xlabel = "Time")
+fig = Figure()
+ax = Axis(fig[1,1], xlabel = "Position", ylabel = "Time")
 heatmap!(ax, history'; colormap = :grays)
-f
+fig
