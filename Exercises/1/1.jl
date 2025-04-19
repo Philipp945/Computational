@@ -27,7 +27,7 @@ end
 
 function distance_to_next(i, cars, road_length)
     next_i = i+1
-    if next_i == length(cars)+1 # circular track
+    if i == length(cars) # circular track
         next_i = 1
         return cars[next_i].position - cars[i].position + road_length
     end
@@ -50,7 +50,6 @@ function update_cars!(cars, road_length)
             cars[i].speed -= 1
         end
         cars[i].speed = min(cars[i].speed, v_max)
-        
         # movement
         cars[i].position = mod1(cars[i].position + cars[i].speed, road_length)
         end
