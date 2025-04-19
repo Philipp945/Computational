@@ -27,7 +27,7 @@ end
 
 function distance_to_next(i, cars, road_length)
     next_i = i+1
-    if i == length(cars) # circular track
+    if i == length(cars)
         next_i = 1
         return cars[next_i].position - cars[i].position + road_length
     end
@@ -49,7 +49,6 @@ function update_cars!(cars, road_length)
         if rand() < dawdling_probability && cars[i].speed > 0
             cars[i].speed -= 1
         end
-        cars[i].speed = min(cars[i].speed, v_max)
         # movement
         cars[i].position = mod1(cars[i].position + cars[i].speed, road_length)
         end
@@ -59,7 +58,6 @@ end
 function run_simulation(road_length, steps)
     cars = init_cars(road_length, car_density)
     history = zeros(Int8, steps, road_length)
-
     for t in 1:steps
         for car in cars
             history[t, car.position] = 1

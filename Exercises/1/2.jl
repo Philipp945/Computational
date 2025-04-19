@@ -27,7 +27,7 @@ end
 
 function distance_to_next(i, cars, road_length)
     next_i = i+1
-    if i == length(cars) # circular track
+    if i == length(cars)
         next_i = 1
         return cars[next_i].position - cars[i].position + road_length
     end
